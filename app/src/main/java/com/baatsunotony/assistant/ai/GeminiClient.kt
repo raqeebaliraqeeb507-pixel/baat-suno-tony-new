@@ -88,7 +88,7 @@ Always output valid JSON matching this exact schema:
         userMessage: String,
         recentNotifications: List<CapturedNotification>
     ): Result<TonyReply> = withContext(Dispatchers.IO) {
-        val apiKey = apiKeyStore.getApiKey()?.trim()
+        val apiKey = apiKeyStore.getApiKey().trim()
         if (apiKey.isEmpty()) {
             return@withContext Result.failure(
                 IllegalStateException("Gemini API key is not saved yet.")
@@ -165,7 +165,7 @@ Always output valid JSON matching this exact schema:
                     ?.optJSONArray("parts")
                     ?.optJSONObject(0)
                     ?.optString("text")
-                    ?.trim()
+                    .trim()
                     .orEmpty()
 
                 if (text.isEmpty()) {
