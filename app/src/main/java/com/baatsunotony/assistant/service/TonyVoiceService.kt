@@ -79,6 +79,18 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
     private var speechRecognizer: SpeechRecognizer? = null
     private var textToSpeech: TextToSpeech? = null
     private var isTtsReady = false
+    
+    private var isLiveChatActive = false
+
+    private fun setBeepMuted(mute: Boolean) {
+        try {
+            val am = getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+            val dir = if (mute) android.media.AudioManager.ADJUST_MUTE else android.media.AudioManager.ADJUST_UNMUTE
+            am.adjustStreamVolume(android.media.AudioManager.STREAM_NOTIFICATION, dir, 0)
+            am.adjustStreamVolume(android.media.AudioManager.STREAM_SYSTEM, dir, 0)
+        } catch (_: Exception) {}
+    }
+
     private var isListeningActive = false
     private var isPausedForTraining = false
     private var isShuttingDown = false
@@ -87,6 +99,13 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
 
     private val screenUnlockReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+
+            if (intent?.action == Intent.ACTION_SCREEN_OFF) {
+                isLiveChatActive = false
+                pauseListening()
+                return
+            }
+
             val action = intent?.action ?: return
             if (action == Intent.ACTION_USER_PRESENT || action == Intent.ACTION_SCREEN_ON) {
                 refreshConnectivityAndPermissions()
@@ -220,6 +239,7 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
         val filter = IntentFilter().apply {
             addAction(Intent.ACTION_USER_PRESENT)
             addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_SCREEN_OFF)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(screenUnlockReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
@@ -350,7 +370,7 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
 
         try {
             isListeningActive = true
-            speechRecognizer?.startListening(recognizerIntent)
+            setBeepMuted(true); speechRecognizer?.startListening(recognizerIntent)
         } catch (e: Exception) {
             isListeningActive = false
             AssistantStateBus.setError("Microphone start failed: ${e.localizedMessage}")
@@ -526,6 +546,7 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
     }
 
     private fun handleUserCommand(command: String) {
+        isLiveChatActive = true
         refreshConnectivityAndPermissions()
         AssistantStateBus.addChatMessage("You", command)
         pauseListening()
