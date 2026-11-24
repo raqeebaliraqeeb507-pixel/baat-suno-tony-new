@@ -132,6 +132,8 @@ class VoiceProfileTrainer(private val context: Context) {
                 override fun onEndOfSpeech() {}
 
                 override fun onError(error: Int) {
+        try { Thread.sleep(1100) } catch (_: Exception) {}
+        // Smooth mic cooldown
                     mainHandler.removeCallbacks(timeoutRunnable)
                     recognizer.destroy()
                     if (cont.isActive) cont.resume("baat suno tony")

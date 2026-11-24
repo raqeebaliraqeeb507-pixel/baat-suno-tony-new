@@ -208,6 +208,8 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
 
                 @Deprecated("Deprecated in Java")
                 override fun onError(utteranceId: String?) {
+        try { Thread.sleep(1100) } catch (_: Exception) {}
+        // Smooth mic cooldown
                     onDone(utteranceId)
                 }
             })
@@ -395,6 +397,8 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
             }
 
             override fun onError(error: Int) {
+        try { Thread.sleep(1100) } catch (_: Exception) {}
+        // Smooth mic cooldown
                 isListeningActive = false
                 if (isShuttingDown || isPausedForTraining || !AssistantStateBus.uiState.value.isServiceRunning) return
 

@@ -39,7 +39,7 @@ data class TonyReply(
 class GeminiClient(private val apiKeyStore: ApiKeyStore) {
 
     companion object {
-        private const val MODEL_ID = "gemini-2.5-flash-lite"
+        private const val MODEL_ID = "gemini-3.5-flash-lite"
         private const val ENDPOINT =
             "https://generativelanguage.googleapis.com/v1beta/models/$MODEL_ID:generateContent"
 
