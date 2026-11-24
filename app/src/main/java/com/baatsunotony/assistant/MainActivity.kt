@@ -279,7 +279,7 @@ fun TonyAssistantScreen(
                 title = {
                     Column {
                         Text(
-                            text = "Baat Suno Tony",
+                            text = "Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. ",
                             fontWeight = FontWeight.Bold
                         )
                         Text(
@@ -303,29 +303,6 @@ fun TonyAssistantScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-
-            val ctx = androidx.compose.ui.platform.LocalContext.current
-            val prefs = androidx.compose.runtime.remember { ctx.getSharedPreferences("tony_prefs", android.content.Context.MODE_PRIVATE) }
-            var apiKeyInput by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(prefs.getString("custom_api_key", "") ?: "") }
-            androidx.compose.foundation.layout.Row(
-                modifier = androidx.compose.ui.Modifier.fillMaxWidth().padding(8.dp),
-                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
-            ) {
-                androidx.compose.material3.OutlinedTextField(
-                    value = apiKeyInput,
-                    onValueChange = { apiKeyInput = it },
-                    label = { androidx.compose.material3.Text("Gemini API Key") },
-                    singleLine = true,
-                    modifier = androidx.compose.ui.Modifier.weight(1f)
-                )
-                androidx.compose.foundation.layout.Spacer(modifier = androidx.compose.ui.Modifier.width(8.dp))
-                androidx.compose.material3.Button(onClick = {
-                    prefs.edit().putString("custom_api_key", apiKeyInput.trim()).apply()
-                    android.widget.Toast.makeText(ctx, "API Key Saved!", android.widget.Toast.LENGTH_SHORT).show()
-                }) {
-                    androidx.compose.material3.Text("Save")
-                }
-            }
 
             // 1. Secure Gemini API Key Setup Card (SharedPreferences)
             item {
@@ -428,7 +405,7 @@ fun TonyAssistantScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Step ${state.trainingStep} of 3 — Tap Record and say \"Baat Suno Tony\" clearly so Tony learns your exact pronunciation and voice tone.",
+                            text = "Step ${state.trainingStep} of 3 — Tap Record and say \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \" clearly so Tony learns your exact pronunciation and voice tone.",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFF475569)
                         )
@@ -461,7 +438,7 @@ fun TonyAssistantScreen(
                                             isRecording = true,
                                             showCard = true
                                         )
-                                        trainingStatusMsg = "Listening... say \"Baat Suno Tony\""
+                                        trainingStatusMsg = "Listening... say \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \""
 
                                         val sampleResult = trainer.captureTrainingStep()
                                         sampleResult.onSuccess { metrics ->
@@ -666,7 +643,7 @@ fun TonyAssistantScreen(
                 ) {
                     val statusLabel = when (state.phase) {
                         ListeningPhase.STOPPED -> "Standby — Service Stopped"
-                        ListeningPhase.WAKE_WORD_STANDBY -> "Listening for \"Baat Suno Tony\""
+                        ListeningPhase.WAKE_WORD_STANDBY -> "Listening for \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \""
                         ListeningPhase.ACTIVE_COMMAND -> "Listening for your command..."
                         ListeningPhase.THINKING -> "Tony is thinking..."
                         ListeningPhase.SPEAKING -> "Tony is speaking..."
@@ -888,13 +865,37 @@ fun TonyAssistantScreen(
 
                     if (state.chatHistory.isEmpty()) {
                         Text(
-                            text = "Say \"Baat Suno Tony\" or ask \"Tumhein kis ne banaya hai?\", \"Tum kis ke mobile mein ho?\", or \"WhatsApp kholo\".",
+                            text = "Say \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \" or ask \"Tumhein kis ne banaya hai?\", \"Tum kis ke mobile mein ho?\", or \"WhatsApp kholo\".",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFF64748B)
                         )
                     } else {
                         state.chatHistory.takeLast(8).forEach { entry ->
                             Column(modifier = Modifier.fillMaxWidth()) {
+
+                val ctx = androidx.compose.ui.platform.LocalContext.current
+                val prefs = androidx.compose.runtime.remember { ctx.getSharedPreferences("tony_prefs", android.content.Context.MODE_PRIVATE) }
+                var apiKeyInput by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(prefs.getString("custom_api_key", "") ?: "") }
+                androidx.compose.foundation.layout.Row(
+                    modifier = androidx.compose.ui.Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
+                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                ) {
+                    androidx.compose.material3.OutlinedTextField(
+                        value = apiKeyInput,
+                        onValueChange = { apiKeyInput = it },
+                        label = { androidx.compose.material3.Text("Gemini API Key") },
+                        singleLine = true,
+                        modifier = androidx.compose.ui.Modifier.weight(1f)
+                    )
+                    androidx.compose.foundation.layout.Spacer(modifier = androidx.compose.ui.Modifier.width(8.dp))
+                    androidx.compose.material3.Button(onClick = {
+                        prefs.edit().putString("custom_api_key", apiKeyInput.trim()).apply()
+                        android.widget.Toast.makeText(ctx, "API Key Saved!", android.widget.Toast.LENGTH_SHORT).show()
+                    }) {
+                        androidx.compose.material3.Text("Save")
+                    }
+                }
+
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
