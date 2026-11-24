@@ -165,7 +165,7 @@ Always output valid JSON matching this exact schema:
                     ?.optJSONArray("parts")
                     ?.optJSONObject(0)
                     ?.optString("text")
-                    .trim()
+                    ?.trim()
                     .orEmpty()
 
                 if (text.isEmpty()) {
