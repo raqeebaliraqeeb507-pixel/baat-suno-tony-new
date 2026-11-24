@@ -39,7 +39,7 @@ data class TonyReply(
 class GeminiClient(private val apiKeyStore: ApiKeyStore) {
 
     companion object {
-        private const val MODEL_ID = "gemini-2.5-flash"
+        private const val MODEL_ID = "gemini-3.8-flash"
         private const val ENDPOINT =
             "https://generativelanguage.googleapis.com/v1beta/models/$MODEL_ID:generateContent"
 
@@ -88,7 +88,7 @@ Always output valid JSON matching this exact schema:
         userMessage: String,
         recentNotifications: List<CapturedNotification>
     ): Result<TonyReply> = withContext(Dispatchers.IO) {
-        val apiKey = apiKeyStore.getApiKey().trim()
+        val apiKey = apiKeyStore.getApiKey().trim().trim()
         if (apiKey.isEmpty()) {
             return@withContext Result.failure(
                 IllegalStateException("Gemini API key is not saved yet.")
