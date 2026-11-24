@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Baat Suno Tony</string>
+    <string name="accessibility_service_label">Baat Suno Tony Controls</string>
+    <string name="accessibility_service_description">Allows Tony to open apps, scroll feeds, tap buttons on screen, and navigate hands-free when you ask.</string>
+    <string name="notification_listener_label">Baat Suno Tony Message Reader</string>
+</resources>
