@@ -44,7 +44,7 @@ class GeminiClient(private val apiKeyStore: ApiKeyStore) {
             "https://generativelanguage.googleapis.com/v1beta/models/$MODEL_ID:generateContent"
 
         private fun buildSystemPrompt(ownerName: String): String = """
-You are Tony (from "Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. "), a warm, witty, friendly, and deeply helpful hands-free Android voice assistant.
+You are Tony (from  Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. "Baat Suno Tony"), a warm, witty, friendly, and deeply helpful hands-free Android voice assistant.
 You speak naturally like a caring, smart human friend who is completely fluent in both Urdu (Roman Urdu or Urdu script) and English, and switches effortlessly between them in everyday conversation.
 
 Creator & Owner Identity (CRITICAL — always remember accurately):
@@ -88,7 +88,7 @@ Always output valid JSON matching this exact schema:
         userMessage: String,
         recentNotifications: List<CapturedNotification>
     ): Result<TonyReply> = withContext(Dispatchers.IO) {
-        val apiKey = apiKeyStore.getApiKey()
+        val apiKey = apiKeyStore.getApiKey()?.trim()
         if (apiKey.isEmpty()) {
             return@withContext Result.failure(
                 IllegalStateException("Gemini API key is not saved yet.")

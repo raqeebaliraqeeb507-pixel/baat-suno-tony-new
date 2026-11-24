@@ -279,7 +279,7 @@ fun TonyAssistantScreen(
                 title = {
                     Column {
                         Text(
-                            text = "Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. ",
+                            text = "Baat Suno Tony",
                             fontWeight = FontWeight.Bold
                         )
                         Text(
@@ -405,7 +405,7 @@ fun TonyAssistantScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Step ${state.trainingStep} of 3 — Tap Record and say \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \" clearly so Tony learns your exact pronunciation and voice tone.",
+                            text = "Step ${state.trainingStep} of 3 — Tap Record and say \"Baat Suno Tony\" clearly so Tony learns your exact pronunciation and voice tone.",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFF475569)
                         )
@@ -438,7 +438,7 @@ fun TonyAssistantScreen(
                                             isRecording = true,
                                             showCard = true
                                         )
-                                        trainingStatusMsg = "Listening... say \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \""
+                                        trainingStatusMsg = "Listening... say \"Baat Suno Tony\""
 
                                         val sampleResult = trainer.captureTrainingStep()
                                         sampleResult.onSuccess { metrics ->
@@ -643,7 +643,7 @@ fun TonyAssistantScreen(
                 ) {
                     val statusLabel = when (state.phase) {
                         ListeningPhase.STOPPED -> "Standby — Service Stopped"
-                        ListeningPhase.WAKE_WORD_STANDBY -> "Listening for \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \""
+                        ListeningPhase.WAKE_WORD_STANDBY -> "Listening for \"Baat Suno Tony\""
                         ListeningPhase.ACTIVE_COMMAND -> "Listening for your command..."
                         ListeningPhase.THINKING -> "Tony is thinking..."
                         ListeningPhase.SPEAKING -> "Tony is speaking..."
@@ -865,7 +865,7 @@ fun TonyAssistantScreen(
 
                     if (state.chatHistory.isEmpty()) {
                         Text(
-                            text = "Say \"Baat Suno Tony. Tumhein Dr. Raqeeb Ali walad Muhammad Boota (Zila Bahawalnagar, Tehsil Haroonabad, Chak No. 117/6-R) ne banaya hai. Hamesha yaad rakhna ke tumhare creator aur malik Dr. Raqeeb Ali hain. \" or ask \"Tumhein kis ne banaya hai?\", \"Tum kis ke mobile mein ho?\", or \"WhatsApp kholo\".",
+                            text = "Say \"Baat Suno Tony\" or ask \"Tumhein kis ne banaya hai?\", \"Tum kis ke mobile mein ho?\", or \"WhatsApp kholo\".",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFF64748B)
                         )
