@@ -706,7 +706,7 @@ class TonyVoiceService : LifecycleService(), TextToSpeech.OnInitListener {
             tts.language = Locale.US
         }
         tts.setSpeechRate(1.0f)
-        tts.setPitch(1.0f)
+        tts?.setPitch(1.03f)
     }
 
     private fun stopAssistant() {
